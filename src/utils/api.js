@@ -929,7 +929,7 @@ const getAuthHeaders = () => {
 
 export const getUserFavorites = async () => {
     try {
-      const response = await axios.get(`${API_URL}/users/favorites`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/favorites`, {
         headers: getAuthHeaders(),
       });
       return response.data; // ✅ Return full recipe data, not just IDs
@@ -956,7 +956,7 @@ export const getUserFavorites = async () => {
 
 export const updateUserProfile = async (profileData) => {
     try {
-      const response = await axios.put(`${API_URL}/users/profile`, profileData, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/users/profile`, profileData, {
         headers: getAuthHeaders(),
       });
       return response.data;
@@ -990,7 +990,7 @@ export const addRecipeToFavorites = async (recipeId) => {
 // **Remove Recipe from Favorites**
 export const removeRecipeFromFavorites = async (recipeId) => {
     try {
-      const response = await axios.delete(`${API_URL}/users/favorites/${recipeId}`, {
+      const response = await axios.delete(`${process.env.REACT_APP_API_URL}/users/favorites/${recipeId}`, {
         headers: getAuthHeaders(),
       });
       return response.data;
@@ -1008,7 +1008,7 @@ export const removeRecipeFromFavorites = async (recipeId) => {
 // **Get User Profile**
 export const getUserProfile = async () => {
   try {
-    const response = await axios.get(`${API_URL}/users/profile`, {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`, {
       headers: getAuthHeaders(),
     });
     return response.data; // Should return { _id, username, favoriteRecipes }
@@ -1037,7 +1037,7 @@ export const getMealPlanByDate = async (date) => {
     try {
         console.log(`📤 Fetching Meal Plan for: ${date}`);
 
-        const response = await fetch(`http://localhost:5001/api/users/meal-planner/${date}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/meal-planner/${date}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -1059,7 +1059,7 @@ export const getRecipesBySearch = async (query) => {
     try {
       console.log(`📤 Fetching recipes for: ${query}`);
   
-      const response = await fetch(`http://localhost:5001/api/recipes/search?query=${query}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/recipes/search?query=${query}`);
   
       if (!response.ok) {
         throw new Error(`HTTP Error! Status: ${response.status}`);
