@@ -1,0 +1,40 @@
+.food-list-page {
+    display: flex;
+    padding: 1rem;
+  }
+  
+  .sidebar {
+    width: 200px;
+    padding: 1rem;
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .category-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .category-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .category-item.active,
+  .category-item:hover {
+    background-color: #ff6f61;
+    color: white;
+  }
+  
+  .food-list {
+    flex-grow: 1;
+    padding: 1rem;
+  }
+  
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  

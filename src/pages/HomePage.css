@@ -1,0 +1,199 @@
+/* HomePage.css */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap');
+.homepage {
+    font-family: 'Roboto', serif;
+    color: #333;
+    padding: 20px;
+  }
+  
+  /* .hero {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #F6EFBD;
+    color: #333;
+    border-radius: 10px;
+  } */
+
+  .hero {
+    background-image: url('./images/chef-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: black;
+    font-weight: bolder;
+    padding: 60px 20px; 
+    height: 250px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+
+  .hero h1 {
+    font-size: 2.5em;
+  }
+  
+  .hero p {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+  
+  .cta-button {
+    background-color: #ff6347;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .cta-button:hover {
+    background-color: #ff4500;
+  }
+  
+  /* Features Section */
+  .h2-heading {
+    font-size: 2rem; /* Increase font size */
+    text-align: center;
+    margin-bottom: 2cqmax;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .features {
+    padding: 40px 0;
+  }
+  
+  .features h2 {
+    text-align: center;
+  }
+  
+  .feature-cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  /* .feature-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  } */
+
+  .feature-card {
+    text-align: center;
+    width: 21%;
+    height: 300px;
+    padding: 0; /* Remove padding inside the card */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden; /* Ensures the image aligns with rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-image {
+    width: 100%; /* Make image span full width */
+    height: 70%; /* Maintain aspect ratio */
+    display: block; /* Ensures no extra space around the image */
+    margin: 0; /* Remove any default margin */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px; /* Matches card corners if using rounded corners */
+  }
+  
+  .h3-feature {
+    font-weight: bold;
+    margin-top: 5%;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+  /* Popular Recipes Section */
+  /* Swiper Carousel Styles */
+.popular-recipes {
+    padding: 40px 0;
+    text-align: center;
+    margin-left: 0%;
+  }
+  
+  .popular-recipes h2 {
+    margin-bottom: 0%;
+  }
+  
+  .recipe-card {
+    height: 90%;
+    background-color: #f9f9f9;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .recipe-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0%;
+  }
+  
+  /* Cooking Tips Section */
+  .cooking-tips {
+    padding: 40px 0;
+  }
+  
+  .tips-cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .tip-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    background-image: url('./images/ending.jpg');
+    background-size: cover;
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #ff6347;
+    color: white;
+  }
+  
+  .cta-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .cta-section .cta-button {
+    background-color: #ff6347;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cta-section .cta-button:hover {
+    background-color: #ff4500;
+  }
+
+  .swiper-slide {
+    height: 500px; /* Adjust to your preferred height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
