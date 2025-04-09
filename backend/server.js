@@ -6,7 +6,6 @@ const PORT = 5001;
 const mongoose = require('mongoose');
 const Recipe = require('./models/Recipes');
 const recipeRoutes = require('./routes/recipe');
-const mongoURI = 'mongodb+srv://user1:password_1234@sous-chef.zx7v4.mongodb.net/?retryWrites=true&w=majority&appName=sous-chef';
 const User = require('./models/User')
 const dotenv = require('dotenv')
 const userRoutes = require("./routes/user");
@@ -136,7 +135,7 @@ app.post('/api/chat', async (req, res) => {
               max_tokens: 500,
           },
           {
-              headers: { 'Authorization': `Bearer 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` }
+              headers: { 'Authorization': `Bearer` }
           }
       );
 
