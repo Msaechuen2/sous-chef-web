@@ -7,8 +7,7 @@ const recipeSchema = new mongoose.Schema({
   instructions: [{ type: String, required: true }],
   imageUrl: { type: String, required: true },
   prepTime: { type: Number }, 
-  cookTime: { type: Number }, 
-  // servings: { type: Number }   // Optional: number of servings
+  cookTime: { type: Number },
 });
 
 const Recipe = mongoose.model('recipes', recipeSchema);

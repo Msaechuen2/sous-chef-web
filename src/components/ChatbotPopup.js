@@ -21,7 +21,7 @@ const ChatbotPopup = () => {
           <div className="chat-popup-window">
             <button className="close-button" onClick={togglePopup}>✖</button>
             <h3>Chat with Sous Chef</h3>
-            <ChatAssistant /> {/* Embed the ChatAssistant component here */}
+            <ChatAssistant /> 
           </div>
         )}
       </div>

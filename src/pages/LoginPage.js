@@ -25,7 +25,6 @@ const LoginPage = () => {
 
   return (
     <Container maxWidth="lg" sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Logo and Brand Name at Top Left, Linked to Homepage */}
       <Box
         component={RouterLink}
         to="/home"
@@ -37,9 +36,7 @@ const LoginPage = () => {
         </Typography>
       </Box>
 
-      {/* Main Content with Left and Right Sections */}
       <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ flex: 1 }}>
-        {/* Left Section - Welcome Message */}
         <Grid item xs={12} md={6}>
           <Box sx={{ p: 5, textAlign: 'center' }}>
             <Typography variant="h2" fontWeight="bold" sx={{ color: 'black', mb: 3 }}>
@@ -54,7 +51,6 @@ const LoginPage = () => {
           </Box>
         </Grid>
 
-        {/* Right Section - Login Form */}
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ p: 4, maxWidth: 400, margin: 'auto' }}>
             <form onSubmit={handleSubmitEvent}>

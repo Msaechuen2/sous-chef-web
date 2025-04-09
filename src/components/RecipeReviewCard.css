@@ -1,6 +1,6 @@
 .small-image {
-    height: 200px;       /* Set desired height */
-    width: 100%;        /* Set desired width */
-    object-fit: cover;   /* Keeps image within bounds without distortion */
+    height: 200px;      
+    width: 100%;    
+    object-fit: cover;  
     text-align: center;
   }

@@ -9,15 +9,15 @@ const recipeRoutes = require('./routes/recipe');
 const mongoURI = 'mongodb+srv://user1:password_1234@sous-chef.zx7v4.mongodb.net/?retryWrites=true&w=majority&appName=sous-chef';
 const User = require('./models/User')
 const dotenv = require('dotenv')
-const userRoutes = require("./routes/user"); //new
-const router = express.Router(); // ✅ Define router
+const userRoutes = require("./routes/user");
+const router = express.Router();
 
 dotenv.config({ path: "./.env" });
 
 app.use(cors());
 app.use(express.json());
 app.use('/api/recipes', recipeRoutes);
-app.use("/api/users", userRoutes);  //new
+app.use("/api/users", userRoutes); 
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
@@ -59,234 +59,9 @@ app.get('/recipes/:id', async (req, res) => {
   }
 });
 
+let lastRequestedRecipe = null; 
 
-
-
-
-let lastRequestedRecipe = null; // Store last recipe requested
-
-// app.post('/api/chat', async (req, res) => {
-//   let userMessage = req.body.message.toLowerCase().trim();
-
-//   try {
-//     let systemPrompt = `You are the Sous Chef Chatbot, an interactive cooking assistant.
-//     You provide recipe support, answer culinary questions, suggest meal-planning ideas, and offer practical cooking tips.
-//     Avoid technical jargon, emphasize clarity, and prefer actionable advice.
-    
-//     When asked about a recipe, return BOTH the ingredient list and the cooking instructions in a well-structured format.
-    
-//     Example format:
-    
-//     **Ingredients:**
-//     - 200g Spaghetti
-//     - 100g Pancetta
-//     - 2 large eggs
-//     - 50g Parmesan cheese
-    
-//     **Instructions:**
-//     1. Boil the spaghetti in salted water.
-//     2. Fry the pancetta until crispy.
-//     3. Beat the eggs and mix with Parmesan cheese.
-//     4. Toss the pasta with the egg mixture and pancetta.
-//     5. Serve with extra cheese and black pepper.`;
-
-//     // ✅ If user asks for a recipe, return ingredients and instructions
-//     if (userMessage.includes("recipe") || userMessage.includes("how to make")) {
-//       systemPrompt += ` Make sure the response is structured with ingredients first, followed by instructions.`;
-      
-//       userMessage = `Give me the full recipe (ingredients and instructions) for ${userMessage.replace(/recipe|how to make/gi, "").trim()}.`;
-//     }
-
-//     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-//       model: 'gpt-4o',
-//       messages: [
-//         { role: "system", content: systemPrompt },
-//         { role: 'user', content: userMessage }
-//       ],
-//       max_tokens: 500,
-//     }, {
-//       headers: { 'Authorization': `Bearer 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` }
-//     });
-
-//     const reply = response.data.choices[0].message.content.trim();
-
-//     res.json({ reply });
-
-//   } catch (error) {
-//     console.error('Error:', error.response ? error.response.data : error.message);
-//     res.status(500).json({ error: 'Error connecting to ChatGPT' });
-//   }
-// });
-
-
-const sessionChats = {}; // Temporary in-memory chat storage (resets on refresh)
-
-// app.post('/api/chat', async (req, res) => {
-//   const { userId, message } = req.body; // Expect user ID from frontend
-//   let userMessage = message.toLowerCase().trim();
-
-//   if (!userId) {
-//     return res.status(400).json({ error: "User ID is required" });
-//   }
-
-//   try {
-    // let systemPrompt = `You are the Sous Chef Chatbot, an interactive cooking assistant.
-    // You provide recipe support, answer culinary questions, suggest meal-planning ideas, and offer practical cooking tips.
-    // Avoid technical jargon, emphasize clarity, and prefer actionable advice.
-    
-    // When asked about a recipe, return BOTH the ingredient list and the cooking instructions in a well-structured format.
-    
-    // Example format:
-    
-    // **Ingredients:**
-    // - 200g Spaghetti
-    // - 100g Pancetta
-    // - 2 large eggs
-    // - 50g Parmesan cheese
-    
-    // **Instructions:**
-    // 1. Boil the spaghetti in salted water.
-    // 2. Fry the pancetta until crispy.
-    // 3. Beat the eggs and mix with Parmesan cheese.
-    // 4. Toss the pasta with the egg mixture and pancetta.
-    // 5. Serve with extra cheese and black pepper.`;
-
-//     // ✅ If user asks for a recipe, return structured ingredients and instructions
-//     if (userMessage.includes("recipe") || userMessage.includes("how to make")) {
-//       systemPrompt += ` Make sure the response is structured with ingredients first, followed by instructions.`;
-//       userMessage = `Give me the full recipe (ingredients and instructions) for ${userMessage.replace(/recipe|how to make/gi, "").trim()}.`;
-//     }
-
-//     // ✅ Maintain chat history during the session (reset on refresh)
-//     if (!sessionChats[userId]) {
-//       sessionChats[userId] = [];
-//     }
-
-//     // Add user message to chat history
-//     sessionChats[userId].push({ role: 'user', content: userMessage });
-
-//     // Construct conversation with history
-//     const formattedMessages = [
-//       { role: "system", content: systemPrompt },
-//       ...sessionChats[userId] // Send session-based chat history
-//     ];
-
-//     const response = await axios.post(
-//       'https://api.openai.com/v1/chat/completions',
-//       {
-//         model: 'gpt-4o',
-//         messages: formattedMessages,
-//         max_tokens: 500,
-//       },
-//       {
-//         headers: { 'Authorization': `Bearer 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` }
-//       }
-//     );
-
-//     const assistantReply = response.data.choices[0].message.content.trim();
-
-//     // Add assistant reply to chat history
-//     sessionChats[userId].push({ role: 'assistant', content: assistantReply });
-
-//     res.json({ reply: assistantReply });
-
-//   } catch (error) {
-//     console.error('Error:', error.response ? error.response.data : error.message);
-//     res.status(500).json({ error: 'Error connecting to ChatGPT' });
-//   }
-// });
-
-
-
-
-
-
-
-
-
-// app.post('/api/chat', async (req, res) => {
-//     const { userId, message } = req.body;
-//     let userMessage = message.toLowerCase().trim();
-
-//     // ✅ Ensure userId is a valid MongoDB ObjectId before querying
-//     if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
-//         return res.status(400).json({ error: "Invalid user ID. Please log in." });
-//     }
-
-//     try {
-//         // ✅ Handle "save favorite" command
-//         if (userMessage.startsWith("save favorite")) {
-//             const recipeName = userMessage.replace("save favorite", "").trim();
-
-//             // ✅ Find the Recipe by Name
-//             const recipe = await Recipe.findOne({ name: new RegExp(`^${recipeName}$`, "i") }); // Case-insensitive match
-//             if (!recipe) {
-//                 return res.json({ reply: "Sorry, I couldn't find that recipe!" });
-//             }
-
-//             // ✅ Ensure user exists before updating favorites
-//             const user = await User.findById(userId);
-//             if (!user) {
-//                 return res.status(404).json({ error: "User not found." });
-//             }
-
-//             // ✅ Save Favorite Recipe
-//             await User.findByIdAndUpdate(userId, { $addToSet: { favoriteRecipes: recipe._id } });
-
-//             return res.json({ reply: `✅ "${recipe.name}" has been added to your favorites!` });
-//         }
-
-//         // ✅ Normal Chatbot Processing
-//         let systemPrompt = `You are the Sous Chef Chatbot, an interactive cooking assistant.
-//         You provide recipe support, answer culinary questions, suggest meal-planning ideas, and offer practical cooking tips.
-//         Avoid technical jargon, emphasize clarity, and prefer actionable advice.
-        
-//         When asked about a recipe, return BOTH the ingredient list and the cooking instructions in a well-structured format.`;
-
-//         if (userMessage.includes("recipe") || userMessage.includes("how to make")) {
-//             systemPrompt += ` Make sure the response is structured with ingredients first, followed by instructions.`;
-//             userMessage = `Give me the full recipe (ingredients and instructions) for ${userMessage.replace(/recipe|how to make/gi, "").trim()}.`;
-//         }
-
-//         // ✅ Maintain chat history during the session (reset on refresh)
-//         if (!sessionChats[userId]) {
-//             sessionChats[userId] = [];
-//         }
-
-//         // Add user message to chat history
-//         sessionChats[userId].push({ role: 'user', content: userMessage });
-
-//         // Construct conversation with history
-//         const formattedMessages = [
-//             { role: "system", content: systemPrompt },
-//             ...sessionChats[userId] // Send session-based chat history
-//         ];
-
-//         const response = await axios.post(
-//             'https://api.openai.com/v1/chat/completions',
-//             {
-//                 model: 'gpt-4o',
-//                 messages: formattedMessages,
-//                 max_tokens: 500,
-//             },
-//             {
-//                 headers: { 'Authorization': `Bearer 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` }
-//             }
-//         );
-
-//         const assistantReply = response.data.choices[0].message.content.trim();
-//         sessionChats[userId].push({ role: 'assistant', content: assistantReply });
-
-//         res.json({ reply: assistantReply });
-
-//     } catch (error) {
-//         console.error('Error:', error.response ? error.response.data : error.message);
-//         res.status(500).json({ error: 'Error connecting to ChatGPT' });
-//     }
-// });
-
-
-
+const sessionChats = {}; 
 
 app.post('/api/chat', async (req, res) => {
   const { userId, message } = req.body;
@@ -295,7 +70,7 @@ app.post('/api/chat', async (req, res) => {
   if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ error: "Invalid user ID. Please log in." });
   }
-  console.log(`🔍 Searching database for recipe: "${userMessage}"`);
+  console.log(`Searching database for recipe: "${userMessage}"`);
   try {
       let recipeData = null;
 
@@ -321,69 +96,33 @@ app.post('/api/chat', async (req, res) => {
       4. Toss the pasta with the egg mixture and pancetta.
       5. Serve with extra cheese and black pepper.`;
 
-
-      // ✅ Extract recipe name from message
       const recipeNameMatch = userMessage.match(/(?:recipe for|how to make|how to cook|how do i cook)\s+(.+)/i);
 
       let recipeName = recipeNameMatch ? recipeNameMatch[1].trim() : null;
 
-      // ✅ Remove unwanted punctuation at the end (e.g., "Spaghetti Carbonara?" → "Spaghetti Carbonara")
       if (recipeName) {
           recipeName = recipeName.replace(/[\.\?\!\,]$/, "").trim();
       }
-      console.log(`🔍 Searching database for recipe: "${recipeName}"`);
-      // if (recipeName) {
-      //     console.log(`🔍 Searching database for recipe: "${recipeName}"`);
-
-      //     // ✅ Ensure the database query is case-insensitive and removes extra spaces
-      //     recipeData = await Recipe.findOne({ 
-      //       name: { $regex: new RegExp(recipeName, "i") } 
-      //     });
-
-      //     if (!recipeData) {
-      //         console.log("⚠️ Recipe not found in database.");
-      //         return res.json({
-      //             reply: `⚠️ Sorry, I couldn't find "${recipeName}" in the database.`,
-      //             recipeId: null,
-      //             imageUrl: null
-      //         });
-      //     }
-
-      //     console.log(`✅ Found recipe: ${recipeData.name}`);
-      //     console.log(`🖼️ Recipe Image URL from DB: ${recipeData.imageUrl}`);
-
-      //     if (!recipeData.imageUrl) {
-      //         console.log("⚠️ Warning: Recipe found but no imageUrl field!");
-      //     }
-
-      //     // ✅ Modify user message to ask ChatGPT to include structured recipe format
-      //     userMessage = `Give me the full recipe (ingredients and instructions) for ${recipeName}.`;
-      // }
+      console.log(`Searching database for recipe: "${recipeName}"`);
 
       if (recipeName) {
         console.log(`🔍 Searching for recipe: ${recipeName}`);
 
-        // ✅ Look for the recipe in MongoDB
         recipeData = await Recipe.findOne({ name: new RegExp(`^${recipeName}$`, "i") });
 
         if (recipeData) {
-            console.log(`✅ Recipe found in database: ${recipeData.name}`);
-            // ✅ Modify message so ChatGPT generates structured answer
+            console.log(`Recipe found in database: ${recipeData.name}`);
             userMessage = `Give me the full recipe (ingredients and instructions) for ${recipeName}.`;
         } else {
             console.log(`⚠️ Recipe not found: ${recipeName}`);
-            // ✅ Do not return an error—just continue with GPT processing.
         }
       }
-
-      // ✅ Maintain chat history during the session (reset on refresh)
       if (!sessionChats[userId]) {
           sessionChats[userId] = [];
       }
 
       sessionChats[userId].push({ role: 'user', content: userMessage });
 
-      // Construct conversation with history
       const formattedMessages = [
           { role: "system", content: systemPrompt },
           ...sessionChats[userId]
@@ -404,7 +143,6 @@ app.post('/api/chat', async (req, res) => {
       const assistantReply = response.data.choices[0].message.content.trim();
       sessionChats[userId].push({ role: 'assistant', content: assistantReply });
 
-      // ✅ Return Recipe Data if Found
       res.json({
           reply: assistantReply,
           recipeId: recipeData ? recipeData._id : null,
@@ -413,7 +151,7 @@ app.post('/api/chat', async (req, res) => {
       });
 
   } catch (error) {
-      console.error('❌ Error:', error.response ? error.response.data : error.message);
+      console.error('Error:', error.response ? error.response.data : error.message);
       res.status(500).json({ error: 'Error connecting to ChatGPT' });
   }
 });

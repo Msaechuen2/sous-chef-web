@@ -1,4 +1,3 @@
-// pages/api/recipes/popular.js
 export default function handler(req, res) {
     const popularRecipes = [
       { id: 1, name: 'Spaghetti Carbonara', imageUrl: '/images/carbonara.jpg' },

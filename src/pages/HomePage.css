@@ -1,5 +1,3 @@
-/* HomePage.css */
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap');
 .homepage {
     font-family: 'Roboto', serif;
@@ -7,13 +5,6 @@
     padding: 20px;
   }
   
-  /* .hero {
-    text-align: center;
-    padding: 60px 20px;
-    background-color: #F6EFBD;
-    color: #333;
-    border-radius: 10px;
-  } */
 
   .hero {
     background-image: url('./images/chef-background.jpg');
@@ -55,9 +46,8 @@
     background-color: #ff4500;
   }
   
-  /* Features Section */
   .h2-heading {
-    font-size: 2rem; /* Increase font size */
+    font-size: 2rem;
     text-align: center;
     margin-bottom: 2cqmax;
     font-weight: bold;
@@ -78,34 +68,26 @@
     justify-content: center;
     margin-top: 20px;
   }
-  
-  /* .feature-card {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    width: 220px;
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  } */
+
 
   .feature-card {
     text-align: center;
     width: 21%;
     height: 300px;
-    padding: 0; /* Remove padding inside the card */
+    padding: 0;
     background-color: #f9f9f9;
     border-radius: 8px;
-    overflow: hidden; /* Ensures the image aligns with rounded corners */
+    overflow: hidden; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .feature-image {
-    width: 100%; /* Make image span full width */
-    height: 70%; /* Maintain aspect ratio */
-    display: block; /* Ensures no extra space around the image */
-    margin: 0; /* Remove any default margin */
+    width: 100%; 
+    height: 70%; 
+    display: block; 
+    margin: 0; 
     border-top-left-radius: 8px;
-    border-top-right-radius: 8px; /* Matches card corners if using rounded corners */
+    border-top-right-radius: 8px; 
   }
   
   .h3-feature {
@@ -114,8 +96,7 @@
     margin-left: 1%;
     margin-right: 1%;
   }
-  /* Popular Recipes Section */
-  /* Swiper Carousel Styles */
+
 .popular-recipes {
     padding: 40px 0;
     text-align: center;
@@ -142,7 +123,6 @@
     margin-bottom: 0%;
   }
   
-  /* Cooking Tips Section */
   .cooking-tips {
     padding: 40px 0;
   }
@@ -162,7 +142,6 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  /* CTA Section */
   .cta-section {
     background-image: url('./images/ending.jpg');
     background-size: cover;
@@ -191,7 +170,7 @@
   }
 
   .swiper-slide {
-    height: 500px; /* Adjust to your preferred height */
+    height: 500px; 
     display: flex;
     align-items: center;
     justify-content: center;

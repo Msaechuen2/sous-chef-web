@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Recipe = require('../models/Recipes'); // assuming you have a Recipe model
+const Recipe = require('../models/Recipes');
 
 router.get('/popular', async (req, res) => {
   try {
-    const recipes = await Recipe.find().limit(10); // limit the number of popular recipes
+    const recipes = await Recipe.find().limit(10); 
     res.json(recipes);
   } catch (error) {
     console.error('Error fetching popular recipes:', error);
@@ -12,12 +12,10 @@ router.get('/popular', async (req, res) => {
   }
 });
 
-// Route to get recipes based on selected category
 router.get('/', async (req, res) => {
   try {
     const { category } = req.query;
 
-    // Apply filter only if a specific category is selected (not "All")
     const filter = category && category !== 'All' ? { categories: { $in: [category] } } : {};
 
     const recipes = await Recipe.find(filter);
@@ -37,9 +35,8 @@ router.get("/search", async (req, res) => {
 
     console.log(`🔍 Searching recipes by name: ${query}`);
 
-    // ✅ Query only the `name` field, preventing ObjectId error
     const recipes = await Recipe.find({
-      name: { $regex: query, $options: "i" } // Case-insensitive search
+      name: { $regex: query, $options: "i" } 
     });
 
     console.log(`✅ Found ${recipes.length} recipes`);
