@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipes');
 const recipeRoutes = require('./routes/recipe');
 const User = require('./models/User')
-const dotenv = require('dotenv')
+const dotenv = require('doten
 const userRoutes = require("./routes/user");
 const router = express.Router();
 
